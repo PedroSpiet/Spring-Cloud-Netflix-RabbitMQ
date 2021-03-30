@@ -22,6 +22,6 @@ public class ProductSendMessage {
     }
 
     public void sendMessage(ProductVO productVO) {
-        rabbitTemplate.convertAndSend(exchange, routingKey ,productVO);
+        rabbitTemplate.convertAndSend(exchange, routingKey, productVO);
     }
 }

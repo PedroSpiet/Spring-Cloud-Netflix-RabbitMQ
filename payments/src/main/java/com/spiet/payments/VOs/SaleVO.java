@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 
@@ -39,6 +40,6 @@ public class SaleVO extends RepresentationModel<SaleVO> implements Serializable 
     private Double totalValue;
 
     public static SaleVO create(Sale sale) {
-         return new ModelMapper().map(sale, SaleVO.class);
+        return new ModelMapper().map(sale, SaleVO.class);
     }
 }

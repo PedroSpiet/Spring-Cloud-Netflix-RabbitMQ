@@ -35,7 +35,7 @@ public class SaleService {
         List<SaleProduct> salveProducts = new ArrayList<>();
 
         saleProductVO.getProducts().forEach(p -> {
-            SaleProduct pv =  SaleProduct.create(p);
+            SaleProduct pv = SaleProduct.create(p);
             pv.setSale(sale);
             salveProducts.add(repoProduct.save(pv));
         });

@@ -18,6 +18,7 @@ public class ProductService {
     private ProductRepository repo;
 
     private ProductSendMessage psm;
+
     @Autowired
     public ProductService(ProductRepository repo, ProductSendMessage psm) {
         this.repo = repo;
@@ -25,9 +26,9 @@ public class ProductService {
     }
 
     public ProductVO create(ProductVO productVO) {
-       ProductVO product = ProductVO.create(repo.save(Product.create(productVO)));
-       psm.sendMessage(product);
-       return product;
+        ProductVO product = ProductVO.create(repo.save(Product.create(productVO)));
+        psm.sendMessage(product);
+        return product;
     }
 
     public Page<ProductVO> findAll(Pageable pageable) {

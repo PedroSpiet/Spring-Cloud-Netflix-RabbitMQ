@@ -19,7 +19,7 @@ public class ProductReceiveMessage {
     }
 
     @RabbitListener(queues = {"${crud.rabbitmq.queue}"})
-    public void receive (@Payload ProductVO produtoVO){
+    public void receive(@Payload ProductVO produtoVO) {
         produtoRepository.save(Product.create(produtoVO));
     }
 }

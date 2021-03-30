@@ -35,20 +35,20 @@ public class ProductController {
     }
 
     @GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml",})
-    public ProductVO findById(@PathVariable("id")  Long id) {
+    public ProductVO findById(@PathVariable("id") Long id) {
         ProductVO productVO = service.findById(id);
         productVO.add(linkTo(methodOn(ProductController.class).findById(id)).withSelfRel());
         return productVO;
     }
 
-    @GetMapping(produces = {"application/json","application/xml","application/x-yaml"})
+    @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<?> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
                                      @RequestParam(value = "limit", defaultValue = "12") int limit,
                                      @RequestParam(value = "direction", defaultValue = "asc") String direction) {
 
         var sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
 
-        Pageable pageable = PageRequest.of(page,limit, Sort.by(sortDirection,"name"));
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "name"));
 
         Page<ProductVO> produtos = service.findAll(pageable);
         produtos.stream()
@@ -66,8 +66,8 @@ public class ProductController {
         return proVo;
     }
 
-    @PutMapping(produces = {"application/json","application/xml","application/x-yaml"},
-            consumes = {"application/json","application/xml","application/x-yaml"})
+    @PutMapping(produces = {"application/json", "application/xml", "application/x-yaml"},
+            consumes = {"application/json", "application/xml", "application/x-yaml"})
     public ProductVO update(@RequestBody ProductVO produtoVO) {
         ProductVO proVo = service.update(produtoVO);
         proVo.add(linkTo(methodOn(ProductController.class).findById(produtoVO.getId())).withSelfRel());
@@ -75,7 +75,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Long id){
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return ResponseEntity.ok().build();
     }
