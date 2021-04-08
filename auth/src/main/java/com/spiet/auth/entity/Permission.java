@@ -27,4 +27,8 @@ public class Permission implements GrantedAuthority, Serializable {
     public String getAuthority() {
         return this.description;
     }
+    
+    public String getDescription() {
+    	return this.description;
+    }
 }
