@@ -7,15 +7,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.spiet.auth.entity.Permission;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -64,6 +62,20 @@ public class JwtTokenProvider {
 		}
 		else {
 			return null;
+		}
+	}
+
+	public boolean validateToken(String token) {
+		try {
+			Jws<Claims> claim = Jwts.parser().setSigningKey(this.secretKey).parseClaimsJws(token);
+
+			if (claim.getBody().getExpiration().before(new Date())) {
+				return false;
+			}
+
+			return true;
+		} catch (JwtException | IllegalArgumentException e) {
+			return false;
 		}
 	}
 }
